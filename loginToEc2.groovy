@@ -1,7 +1,7 @@
 def loginToEc2(){
     sshagent(['ec2 connection']) {
-        sh "ssh -o StrictHostKeyChecking=no ec2-user@13.37.207.20"
-
+        def ec2PublicIP = "xxxx"
+        sh "ssh -o StrictHostKeyChecking=no ec2-user@$ec2PublicIP"
     }
 }
 return this
