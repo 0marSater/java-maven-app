@@ -29,30 +29,17 @@ pipeline {
                 script{
                     def file= load "build.groovy"
                     file.buildDockerImage()
-                }
-            }
-        }
-        stage("Login to dockerhub"){
-            steps{
-                script{
-                    def file= load "dockerhubLogin.groovy"
                     file.dockerLogin()
+                    file.pushImage()
+
                 }
             }
         }
 
-        stage("Push docker image"){
+        stage("Deploy"){
             steps{
                 script{
-                    def file = load "pushDockerImage.groovy"
-                    file.pushImage()
-                }
-            }
-        }
-        stage("Connecting to EC2"){
-            steps{
-                script{
-                    def file = load "loginToEc2.groovy"
+                    def file = load "deploy.groovy"
                     file.loginToEc2()
                 }
             }
