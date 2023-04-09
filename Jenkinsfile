@@ -8,7 +8,7 @@ pipeline {
   }
     stages {
         stage("User input") {
-            steps {
+            steps{
                 script{
                     FULL_IMAGE_NAME = input message: "Please, enter the full image name (with tag) you want to build: ",
                            parameters:[string(name: 'name', defaultValue: '', description: '')]
@@ -17,16 +17,16 @@ pipeline {
             }
         }
         stage("Build app"){
-            stage{
-                steps{
+            steps{
+                script{
                     def file = load "build.groovy"
                     file.buildJar()
                 }
             }
         }
         stage("Build image") {
-            steps {
-                script {
+            steps{
+                script{
                     def file= load "build.groovy"
                     file.buildDockerImage()
                 }
